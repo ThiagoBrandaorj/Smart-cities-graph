@@ -1,5 +1,4 @@
 # SmartNet Analyzer
-
 - **Curso:** Engenharia de Computação/Software, IBMEC
 - **Disciplina:** Análise e Complexidade de Algoritmos (IBM3121), 2026.2
 - **Professor:** Cassius Figueiredo
@@ -8,7 +7,7 @@
   - _Nome 2_ — _matrícula_
 
 ## Sobre
-Aplicação web (HTML + JavaScript puro, sem dependências) que modela uma cidade como grafo e executa DFS, BFS, Dijkstra e Kruskal. Entrada e saída são visuais: o grafo é desenhado no quadro e os resultados são destacados nele, além de tabelas.
+Aplicação web (HTML + JavaScript puro, sem dependências) que modela uma cidade como grafo e executa DFS, BFS, Dijkstra e Kruskal. Entrada e saída são visuais: o grafo é desenhado no quadro e os resultados são destacados nele, além de tabelas.Aplicação em produção no link a seguir: https://thiagobrandaorj.github.io/Smart-cities-graph/
 
 ## Como executar
 1. Baixe/clone o repositório.
