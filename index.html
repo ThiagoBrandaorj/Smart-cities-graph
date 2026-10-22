@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SmartNet Analyzer</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header>
+  <h1>SmartNet Analyzer</h1>
+  <span class="modes">
+    <label><input type="radio" name="mode" value="node" checked>Vértice</label>
+    <label><input type="radio" name="mode" value="edge">Aresta</label>
+    <label><input type="radio" name="mode" value="move">Mover</label>
+    <label><input type="radio" name="mode" value="del">Apagar</label>
+  </span>
+  <label><input type="checkbox" id="dir"> Direcionado</label>
+  <label><input type="checkbox" id="wt" checked> Ponderado</label>
+  <button id="demo">Carregar grafo do enunciado</button>
+  <button id="clear">Apagar grafo</button>
+  <button id="end">Finalizar aplicação</button>
+</header>
+<main>
+  <section>
+    <div class="card"><canvas id="cv"></canvas><p class="mut" id="hint">Clique em um espaço vazio para criar um vértice. Duplo clique em um vértice para renomear.</p></div>
+    <div class="card"><h2>Memória: lista de adjacência</h2><div id="struct"></div>
+      <p class="mut">Cada linha é um vértice; cada bloco é um vizinho (com o peso, se ponderado).</p></div>
+  </section>
+  <aside>
+    <div class="card"><h2>Algoritmos</h2>
+      <div class="row">Origem: <select id="src"></select></div><br>
+      <div class="row"><button data-a="dfs">DFS</button><button data-a="bfs">BFS</button><button data-a="dij">Dijkstra</button><button data-a="kru">Kruskal</button></div></div>
+    <div class="card"><div id="res"><p class="mut">Os resultados aparecem aqui e destacados no grafo.</p></div></div>
+  </aside>
+</main>
+<script src="graph.js"></script><script src="app.js"></script>
+</body></html>
