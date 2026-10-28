@@ -1,4 +1,5 @@
 # SmartNet Analyzer
+
 - **Curso:** Engenharia de Computação/Software, IBMEC
 - **Disciplina:** Análise e Complexidade de Algoritmos (IBM3121), 2026.2
 - **Professor:** Cassius Figueiredo
@@ -7,33 +8,58 @@
   - _Nome 2_ — _matrícula_
 
 ## Sobre
-Aplicação web (HTML + JavaScript puro, sem dependências) que modela uma cidade como grafo e executa DFS, BFS, Dijkstra e Kruskal. Entrada e saída são visuais: o grafo é desenhado no quadro e os resultados são destacados nele, além de tabelas.Aplicação em produção no link a seguir: https://thiagobrandaorj.github.io/Smart-cities-graph/
+Aplicação desktop em **Java (Swing)**, sem dependências externas, que modela uma cidade como grafo e executa DFS, BFS, Dijkstra e Kruskal. Entrada e saída são visuais: o grafo é desenhado no quadro (2D ou 3D) e os resultados são destacados nele, além de tabelas.
 
 ## Como executar
-1. Baixe/clone o repositório.
-2. Abra `index.html` em um navegador moderno (Chrome, Firefox, Edge). Nenhuma instalação é necessária.
-   Opcional: `python3 -m http.server` e acesse `http://localhost:8000`.
-3. Para rodar os testes dos algoritmos: `node tests.js`.
+
+Requisito: JDK 17 ou superior (`javac -version`).
+
+**Windows (PowerShell), na raiz do repositório:**
+```powershell
+javac -encoding UTF-8 -d out (Get-ChildItem src\*.java).FullName
+java -cp out src.Main
+```
+
+**Windows (atalho):** dois cliques em `executar.bat`.
+
+**Linux/macOS:**
+```bash
+javac -encoding UTF-8 -d out src/*.java
+java -cp out src.Main
+```
+
+Testes dos algoritmos: `java -cp out src.Testes`
 
 ## Como usar
 - **Vértice:** clique no quadro. Duplo clique em um vértice para renomeá-lo.
-- **Aresta:** clique na origem e depois no destino (informe o peso quando ponderado).
-- **Mover / Apagar:** reposicione ou remova vértices e arestas.
+- **Aresta:** clique na origem e depois no destino (informe o peso quando o grafo for ponderado).
+- **Mover / Apagar:** reposicionam ou removem vértices e arestas.
 - **Direcionado / Ponderado:** alternam o tipo do grafo a qualquer momento.
-- Escolha a **origem**, clique em DFS, BFS, Dijkstra ou Kruskal. O resultado é animado no grafo e listado em texto/tabela.
-- "Carregar grafo do enunciado" insere o grafo de teste do PDF. "Apagar grafo" limpa tudo. "Finalizar aplicação" encerra.
+- Escolha a **origem** e clique em DFS, BFS, Dijkstra ou Kruskal. O resultado é animado no grafo e listado em texto/tabela.
+- **2D / 3D:** a visão 3D (arraste para girar, roda para zoom, clique em um vértice para defini-lo como origem) mostra o mesmo grafo com os mesmos destaques. A edição é feita no 2D.
+- "Carregar grafo do enunciado" insere o grafo de teste do PDF. "Apagar grafo" limpa tudo. "Finalizar aplicação" encerra o programa.
+
+## Estrutura do código (`src/`)
+| Arquivo | Função |
+|---|---|
+| `Grafo.java` | Lista de adjacência implementada do zero |
+| `Algoritmos.java` | DFS, BFS, Dijkstra e Kruskal (com Union-Find) |
+| `Modelo.java` | Estado compartilhado e animação dos passos |
+| `Painel2D.java` / `Painel3D.java` | Entrada e saída visual (2D e 3D) |
+| `Janela.java` / `Main.java` | Interface principal |
+| `Testes.java` | Verificação dos resultados no grafo do enunciado |
 
 ## Estrutura de dados
-**Lista de adjacência** implementada do zero (`Map` de vértice para array de `{to, w}`), exibida na tela. Escolhida porque grafos urbanos são esparsos: memória O(V+E) contra O(V²) da matriz, e DFS/BFS em O(V+E).
+**Lista de adjacência** (`LinkedHashMap` de vértice para lista de vizinhos), exibida na tela. Grafos urbanos são esparsos: memória O(V+E) contra O(V²) da matriz, e DFS/BFS em O(V+E).
 
 ## Complexidades
 | Algoritmo | Complexidade |
 |---|---|
 | DFS / BFS | O(V+E) |
-| Dijkstra (heap binário implementado do zero) | O((V+E) log V) |
+| Dijkstra (`PriorityQueue`, heap binário) | O((V+E) log V) |
 | Kruskal (ordenação + Union-Find com rank e compressão) | O(E log E) |
 
 ## Observações
 - Dijkstra rejeita pesos negativos com mensagem de erro.
 - Kruskal em grafo direcionado trata as arestas como não-direcionadas; em grafo desconexo devolve a floresta geradora mínima.
-- Vértices e arestas inexistentes/auto-laços são ignorados.
+- Auto-laços são ignorados.
