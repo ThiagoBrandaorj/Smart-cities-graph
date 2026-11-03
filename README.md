@@ -110,8 +110,5 @@ Grafo aleatório com 100.000 vértices e cerca de 400.000 arestas:
 - Kruskal em grafo direcionado trata as arestas como não-direcionadas. Em grafo desconexo, devolve
   a floresta geradora mínima e avisa.
 - Ao marcar "Direcionado" num grafo já desenhado, cada aresta vira ida e volta.
-<<<<<<< HEAD
 - Aresta de um vértice para ele mesmo (laço) não é aceita.
-=======
 - Aresta de um vértice para ele mesmo (laço) não é aceita.
->>>>>>> 381dfc3 (Subindo codigo)
