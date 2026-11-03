@@ -4,7 +4,7 @@
 - **Disciplina:** Análise e Complexidade de Algoritmos (IBM3121), 2026.2
 - **Professor:** Cassius Figueiredo
 - **Integrantes (nome e matrícula):**
-  - _Nome 1_ — _matrícula_
+  - Thiago Corrêa Brandão — 202301135265
   - _Nome 2_ — _matrícula_
 
 ## Sobre
