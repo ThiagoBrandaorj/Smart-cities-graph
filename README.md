@@ -5,7 +5,8 @@
 - **Professor:** Cassius Figueiredo
 - **Integrantes (nome e matrícula):**
   - Thiago Corrêa Brandão — 202301135265
-  - _Nome 2_ — _matrícula_
+  - Gabriel Franklin Monteiro — 202301135052
+  - João Gabriel Rodriguez — 202307545333
 
 ## Sobre
 Aplicação desktop em **Java (Swing)**, sem dependências externas, que modela uma cidade como grafo e executa DFS, BFS, Dijkstra e Kruskal. Entrada e saída são visuais: o grafo é desenhado no quadro (2D ou 3D) e os resultados são destacados nele, além de tabelas.
@@ -63,3 +64,4 @@ Testes dos algoritmos: `java -cp out src.Testes`
 - Dijkstra rejeita pesos negativos com mensagem de erro.
 - Kruskal em grafo direcionado trata as arestas como não-direcionadas; em grafo desconexo devolve a floresta geradora mínima.
 - Auto-laços são ignorados.
+- Por que usamos lista de adjacência e não uma matriz de adjacência para armazenar o grafo? Grafos esparsos: a lista gasta O(V+E), a matriz O(V²). A desvantagem é que checar uma aresta custa O(grau) em vez de O(1).
