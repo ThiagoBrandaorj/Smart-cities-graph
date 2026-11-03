@@ -1,12 +1,3 @@
-# SmartNet Analyzer
-
-- **Curso:** Engenharia de Computação/Software, IBMEC
-- **Disciplina:** Análise e Complexidade de Algoritmos (IBM3121), 2026.2
-- **Professor:** Cassius Figueiredo
-- **Integrantes (nome e matrícula):**
-  - _Nome 1_ — _matrícula_
-  - _Nome 2_ — _matrícula_
-
 ## Sobre
 Aplicação desktop em **Java (Swing)** que representa uma cidade como grafo (vértices = bairros,
 arestas = vias ou cabos com custo) e executa **DFS, BFS, Dijkstra e Kruskal**.
