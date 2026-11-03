@@ -38,7 +38,6 @@ public class Janela extends JFrame {
         }
         topo.add(modos); topo.add(dir); topo.add(pond);
         JButton exemplo = new JButton("Carregar grafo do enunciado"), apagar = new JButton("Apagar grafo"), fim = new JButton("Finalizar aplicação");
-        fim.setBackground(new Color(0xC0392B)); fim.setForeground(Color.WHITE);
         topo.add(exemplo); topo.add(apagar); topo.add(fim);
         add(topo, BorderLayout.NORTH);
 
