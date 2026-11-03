@@ -24,6 +24,13 @@ public class Algoritmos {
     public record ResKru(List<Linha> log, List<Grafo.Aresta> escolhidas, double total, boolean geradora, List<Passo> passos) {}
 
     static String fmt(double d) { return d == Math.rint(d) ? String.valueOf((long) d) : String.valueOf(d); }
+    
+    /** Vizinhos de u em ordem alfabética, para que DFS e BFS sejam determinísticos. */
+    private static List<Grafo.Vizinho> ordenados(Grafo g, String u) {
+      List<Grafo.Vizinho> l = new ArrayList<>(g.lista.get(u));
+      l.sort(Comparator.comparing(x -> x.para));
+       return l;
+    }
 
     // ---- DFS recursiva: O(V+E)
     public static ResDfs dfs(Grafo g, String s) {
@@ -41,7 +48,7 @@ public class Algoritmos {
         if (pai != null) passos.add(Passo.via(pai, u));
         passos.add(Passo.visita(u, String.valueOf(ordem.size())));
         linhas.add("    ".repeat(prof) + (pai != null ? "└─ " : "") + u);
-        for (var x : g.lista.get(u)) if (!vis.contains(x.para)) dfs(g, x.para, u, prof + 1, vis, ordem, passos, linhas);
+        for (var x : ordenados(g, u)) if (!vis.contains(x.para)) dfs(g, x.para, u, prof + 1, vis, ordem, passos, linhas);
     }
 
     // ---- BFS com fila em vetor (índice de leitura): O(V+E)
@@ -51,7 +58,7 @@ public class Algoritmos {
         List<Passo> passos = new ArrayList<>(); passos.add(Passo.visita(s, "0"));
         for (int i = 0; i < fila.size(); i++) {
             String u = fila.get(i);
-            for (var x : g.lista.get(u)) if (!saltos.containsKey(x.para)) {
+            for (var x : ordenados(g, u)) if (!saltos.containsKey(x.para)) {
                 saltos.put(x.para, saltos.get(u) + 1); fila.add(x.para);
                 passos.add(Passo.via(u, x.para)); passos.add(Passo.visita(x.para, String.valueOf(saltos.get(x.para))));
             }
