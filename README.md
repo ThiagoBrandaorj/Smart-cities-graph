@@ -7,6 +7,7 @@
   - Thiago Corrêa Brandão — 202301135265
   - Gabriel Franklin Monteiro — 202301135052
   - João Gabriel Rodriguez — 202307545333
+  - Ian Esteves Amaral Francisco — 202608444358
 
 ## Sobre
 Aplicação desktop em **Java (Swing)**, sem dependências externas, que modela uma cidade como grafo e executa DFS, BFS, Dijkstra e Kruskal. Entrada e saída são visuais: o grafo é desenhado no quadro (2D ou 3D) e os resultados são destacados nele, além de tabelas.
