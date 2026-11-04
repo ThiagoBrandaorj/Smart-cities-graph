@@ -66,15 +66,34 @@ public class Grafo {
         }
     }
 
-    // se ja existe, atualiza o peso
+    // se ja existe, atualiza o peso; senao insere em ordem alfabetica
     private void colocarNaLista(int u, int v, double peso) {
-        for (Aresta a : adj.get(u)) {
+        ArrayList<Aresta> lista = adj.get(u);
+        int posicao = lista.size();
+        for (int i = 0; i < lista.size(); i++) {
+            Aresta a = lista.get(i);
             if (a.destino == v) {
                 a.peso = peso;
                 return;
             }
+            if (posicao == lista.size() && nomes.get(a.destino).compareTo(nomes.get(v)) > 0) {
+                posicao = i;
+            }
         }
-        adj.get(u).add(new Aresta(v, peso));
+        lista.add(posicao, new Aresta(v, peso));
+    }
+
+    // ordenacao por insercao pelo nome do destino
+    private void ordenarLista(ArrayList<Aresta> lista) {
+        for (int i = 1; i < lista.size(); i++) {
+            Aresta atual = lista.get(i);
+            int j = i - 1;
+            while (j >= 0 && nomes.get(lista.get(j).destino).compareTo(nomes.get(atual.destino)) > 0) {
+                lista.set(j + 1, lista.get(j));
+                j--;
+            }
+            lista.set(j + 1, atual);
+        }
     }
 
     boolean temAresta(int u, int v) {
@@ -122,6 +141,10 @@ public class Grafo {
     void renomear(int i, String novoNome) {
         nomes.set(i, novoNome);
         refazerNumeros();
+        // o nome mudou: reordena as listas
+        for (ArrayList<Aresta> lista : adj) {
+            ordenarLista(lista);
+        }
     }
 
     private void refazerNumeros() {

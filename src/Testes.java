@@ -115,6 +115,17 @@ public class Testes {
         }
         confere("Texto invalido", deu, "recusou");
 
+        // vizinhos em ordem alfabetica, mesmo inserindo fora de ordem
+        Modelo alf = new Modelo();
+        alf.carregarTexto("A D\nA C\nA B\nB E\nC E\nD E\n", false, false, 760, 520);
+        Algoritmos.Busca dfsAlf = Algoritmos.dfs(alf.g, alf.g.indice("A"));
+        confere("DFS em ordem alfabetica", juntar(alf.g, dfsAlf.ordem, dfsAlf.quantos), "ABECD");
+        Algoritmos.Busca bfsAlf = Algoritmos.bfs(alf.g, alf.g.indice("A"));
+        confere("BFS em ordem alfabetica", juntar(alf.g, bfsAlf.ordem, bfsAlf.quantos), "ABCDE");
+        alf.g.renomear(alf.g.indice("B"), "Z");
+        Algoritmos.Busca bfsRen = Algoritmos.bfs(alf.g, alf.g.indice("A"));
+        confere("BFS depois de renomear B para Z", juntar(alf.g, bfsRen.ordem, bfsRen.quantos), "ACDZE");
+
         // trocar para direcionado
         Grafo nd = new Grafo(false, true);
         nd.addVertice("P", 0, 0);
