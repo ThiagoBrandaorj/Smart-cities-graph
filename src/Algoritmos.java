@@ -1,9 +1,6 @@
 package src;
 import java.util.*;
 
-import src.Grafo.Aresta;
-import src.Grafo.Vizinho;
-
 /** DFS, BFS, Dijkstra e Kruskal. Cada algoritmo devolve também os "passos" usados na animação. */
 public class Algoritmos {
     public record Passo(String no, String rotulo, String u, String v) {
@@ -24,21 +21,22 @@ public class Algoritmos {
     public record ResKru(List<Linha> log, List<Grafo.Aresta> escolhidas, double total, boolean geradora, List<Passo> passos) {}
 
     static String fmt(double d) { return d == Math.rint(d) ? String.valueOf((long) d) : String.valueOf(d); }
-    
-    /** Vizinhos de u em ordem alfabética, para que DFS e BFS sejam determinísticos. */
+
+    /** Vizinhos de u em ordem alfabética, para que DFS e BFS sigam a ordem alfabética e não a ordem de inserção na lista de adjacência. */
     private static List<Grafo.Vizinho> ordenados(Grafo g, String u) {
-      List<Grafo.Vizinho> l = new ArrayList<>(g.lista.get(u));
-      l.sort(Comparator.comparing(x -> x.para));
-       return l;
+        List<Grafo.Vizinho> l = new ArrayList<>(g.lista.get(u));
+        l.sort(Comparator.comparing(x -> x.para));
+        return l;
     }
 
-    // ---- DFS recursiva: O(V+E)
+    // ---- DFS recursiva: travessia O(V+E) + ordenação dos vizinhos O(E log V)
     public static ResDfs dfs(Grafo g, String s) {
         List<String> ordem = new ArrayList<>(), linhas = new ArrayList<>(); List<Passo> passos = new ArrayList<>();
-        dfs(g, s, null, 0, new HashSet<>(), ordem, passos, linhas);
+        Set<String> vis = new HashSet<>();
+        dfs(g, s, null, 0, vis, ordem, passos, linhas);
         List<String> fora = new ArrayList<>(), becos = new ArrayList<>();
         for (var e : g.lista.entrySet()) {
-            if (!ordem.contains(e.getKey())) fora.add(e.getKey());
+            if (!vis.contains(e.getKey())) fora.add(e.getKey());
             if (e.getValue().size() <= (g.direcionado ? 0 : 1)) becos.add(e.getKey());
         }
         return new ResDfs(ordem, passos, linhas, fora, becos);
@@ -51,7 +49,7 @@ public class Algoritmos {
         for (var x : ordenados(g, u)) if (!vis.contains(x.para)) dfs(g, x.para, u, prof + 1, vis, ordem, passos, linhas);
     }
 
-    // ---- BFS com fila em vetor (índice de leitura): O(V+E)
+    // ---- BFS com fila em vetor (índice de leitura): travessia O(V+E) + ordenação dos vizinhos O(E log V)
     public static ResBfs bfs(Grafo g, String s) {
         Map<String, Integer> saltos = new LinkedHashMap<>(); saltos.put(s, 0);
         List<String> fila = new ArrayList<>(); fila.add(s);
@@ -75,14 +73,15 @@ public class Algoritmos {
         Map<String, Double> dist = new LinkedHashMap<>();
         for (String v : g.lista.keySet()) dist.put(v, Double.POSITIVE_INFINITY);
         Map<String, String> ant = new HashMap<>(); Set<String> fechado = new HashSet<>(); List<Passo> passos = new ArrayList<>();
-        PriorityQueue<Map.Entry<String, Double>> fila = new PriorityQueue<>(Map.Entry.comparingByValue());
+        PriorityQueue<Map.Entry<String, Double>> fila = new PriorityQueue<>(
+            Map.Entry.<String, Double>comparingByValue().thenComparing(Map.Entry.comparingByKey()));
         dist.put(s, 0.0); fila.add(Map.entry(s, 0.0));
         while (!fila.isEmpty()) {
             var e = fila.poll(); String u = e.getKey(); double d = e.getValue();
             if (!fechado.add(u)) continue;
             if (ant.containsKey(u)) passos.add(Passo.via(ant.get(u), u));
             passos.add(Passo.visita(u, fmt(d)));
-            for (var x : g.lista.get(u)) {
+            for (var x : ordenados(g, u)) {
                 double nd = d + g.w(x.peso);
                 if (nd < dist.get(x.para)) { dist.put(x.para, nd); ant.put(x.para, u); fila.add(Map.entry(x.para, nd)); }
             }
