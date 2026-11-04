@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-=======
-# SmartNet Analyzer
-
-- **Curso:** Engenharia de Computação/Software, IBMEC
-- **Disciplina:** Análise e Complexidade de Algoritmos (IBM3121), 2026.2
-- **Professor:** Cassius Figueiredo
-- **Integrantes (nome e matrícula):**
-  - _Nome 1_ — _matrícula_
-  - _Nome 2_ — _matrícula_
-
->>>>>>> 381dfc3 (Subindo codigo)
 ## Sobre
 Aplicação desktop em **Java (Swing)** que representa uma cidade como grafo (vértices = bairros,
 arestas = vias ou cabos com custo) e executa **DFS, BFS, Dijkstra e Kruskal**.
@@ -122,8 +110,5 @@ Grafo aleatório com 100.000 vértices e cerca de 400.000 arestas:
 - Kruskal em grafo direcionado trata as arestas como não-direcionadas. Em grafo desconexo, devolve
   a floresta geradora mínima e avisa.
 - Ao marcar "Direcionado" num grafo já desenhado, cada aresta vira ida e volta.
-<<<<<<< HEAD
 - Aresta de um vértice para ele mesmo (laço) não é aceita.
-=======
 - Aresta de um vértice para ele mesmo (laço) não é aceita.
->>>>>>> 381dfc3 (Subindo codigo)
